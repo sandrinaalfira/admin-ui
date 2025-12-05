@@ -1,13 +1,12 @@
 import React from "react";
 import LabeledInput from "../Elements/LabeledInput";
 import Button from "../Elements/Button";
+import { Link } from "react-router-dom";
 
 function FormSignUp() {
   return (
     <>
-    <h2 className="text-2xl font-bold text-center mt-8">
-        Create an account
-      </h2>
+      <h2 className="text-2xl font-bold text-center mt-8">Create an account</h2>
       {/* form start */}
       <div className="mt-16">
         <form action="">
@@ -45,21 +44,18 @@ function FormSignUp() {
             </a>
             .
           </p>
-          <Button>Sign up</Button> 
+          <Button>Sign up</Button>
         </form>
       </div>
       {/* form end */}
-
       <div className="my-9 px-7 flex flex-col justify-center items-center text-xs text-gray-03">
         <div className="border border-gray-05 w-full"></div>
         <div class="px-2 bg-special-mainBg absolute"> or sign up with</div>
       </div>
-      
       {/* sign up with google start */}
       <div className="mb-8">
         <Button type="button" variant="secondary">
           <span className="flex items-center justify-center">
-            {/* SVG ikon Google sama seperti di FormSignIn */}
             <svg
               class="h-6 w-6 mr-2"
               xmlns="http://www.w3.org/2000/svg"
@@ -109,14 +105,13 @@ function FormSignUp() {
         </Button>
       </div>
       {/* sign up with google end */}
-      
       {/* link start */}
-      <p className="text-center text-xs text-gray-03">
-        Already have an account?{" "}
-        <a href="#" className="text-primary hover:text-green-700">
-          Sign in here
-        </a>
-      </p>
+      <div className="flx justify-center text-sm text-gray-01">
+        Already have an account?&nbsp;
+       <Link to="/login" classname="text-primary font-bold">
+          sign In Here
+       </Link>
+      </div>
       {/* link end */}
     </>
   );

@@ -1,7 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import LabeledInput from "../Elements/LabeledInput";
 import CheckBox from "../Elements/CheckBox";
 import Button from "../Elements/Button";
+
 
 function FormSignIn() {
   return (
@@ -97,14 +99,16 @@ function FormSignIn() {
           </span>
         </Button>
       </div>
-      <p className="text-center text-xs text-gray-03 mt-4">
-        <a href="#" className="text-primary hover:text-green-700 font-bold">
-          Create an account
-        </a>
-      </p>
-      {/* link end */}
-    </>
-  );
+      {/* sign in with google end */}
+      {/* link start */}
+      <div className="flex justify-center">
+<Link to="/register" className="text-primary text-sm font-bold">
+Create an account
+</Link>
+        </div>
+        {/* link end */}
+      </>
+  );           
 }
 
 export default FormSignIn;
