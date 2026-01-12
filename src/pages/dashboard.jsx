@@ -6,20 +6,44 @@ import CardUpcomingBill from "../components/Fragments/CardUpcomingBill";
 import CardRecentTransaction from "../components/Fragments/CardRecentTransaction";
 import CardStatistic from "../components/Fragments/CardStatistic";
 import CardExpenseBreakdown from "../components/Fragments/CardExpenseBreakdown";
-import { transactions, bills, expensesBreakdowns, balances, goals, expensesStatistics, } from "../data";
+
+import {
+  transactions,
+  bills,
+  expensesBreakdowns,
+  balances,
+  expensesStatistics,
+} from "../data";
+
 import { goalService } from "../services/dataService";
 import { AuthContext } from "../context/authContext";
+import AppSnackbar from "../components/Elements/AppSnackbar";
 
 function Dashboard() {
-  	const [goals, setGoals] = useState({});
+  const [goalData, setGoalData] = useState({});
+  const { logout } = useContext(AuthContext);
+
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+
+  const handleCloseSnackbar = () => {
+    setSnackbar((prev) => ({ ...prev, open: false }));
+  };
 
   const fetchGoals = async () => {
     try {
       const data = await goalService();
-      setGoals(data);
+      setGoalData(data);
     } catch (err) {
-      console.error("Gagal mengambil data goals:", err);
-      if (err.status === 401) {
+      setSnackbar({
+        open: true,
+        message: "Gagal mengambil data goals",
+        severity: "error",
+      });
+      if (err?.status === 401) {
         logout();
       }
     }
@@ -28,8 +52,6 @@ function Dashboard() {
   useEffect(() => {
     fetchGoals();
   }, []);
-  
-  console.log(goals);
 
   return (
     <MainLayout>
@@ -37,22 +59,34 @@ function Dashboard() {
         <div className="sm:col-span-4">
           <CardBalance data={balances} />
         </div>
+
         <div className="sm:col-span-4">
-          <CardGoal data={goals} />
+          <CardGoal data={goalData} />
         </div>
+
         <div className="sm:col-span-4">
           <CardUpcomingBill data={bills} />
         </div>
+
         <div className="sm:col-span-4 sm:row-span-2">
           <CardRecentTransaction data={transactions} />
         </div>
+
         <div className="sm:col-span-8">
           <CardStatistic data={expensesStatistics} />
         </div>
+
         <div className="sm:col-span-8">
           <CardExpenseBreakdown data={expensesBreakdowns} />
         </div>
       </div>
+
+      <AppSnackbar
+        open={snackbar.open}
+        message={snackbar.message}
+        severity={snackbar.severity}
+        onClose={handleCloseSnackbar}
+      />
     </MainLayout>
   );
 }
