@@ -4,8 +4,13 @@ import SignUpPage from "./pages/signUp";
 import ErrorPage from "./pages/error";
 import DashboardPage from "./pages/dashboard";
 import BalancePage from "./pages/balance";
-import { createBrowserRouter, Navigate, RouterProvider, } from "react-router-dom";
-import { useContext } from "react";
+import ExpensePage from "./pages/expense";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
+import { Children, useContext } from "react";
 import { AuthContext } from "./context/authContext";
 
 function App() {
@@ -19,7 +24,7 @@ function App() {
     return user ? <Navigate to="/" /> : children;
   };
 
- const myRouter = createBrowserRouter([
+  const myRouter = createBrowserRouter([
     {
       path: "/",
       element: (
@@ -53,9 +58,17 @@ function App() {
         </RequireAuth>
       ),
     },
+    {
+      path: "/expense",
+      element: (
+        <RequireAuth>
+          <ExpensePage />
+        </RequireAuth>
+      ),
+    },
   ]);
 
-   return (
+  return (
     <>
       <RouterProvider router={myRouter} />
     </>

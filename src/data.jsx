@@ -32,7 +32,15 @@ export const expensesBreakdowns = [
     amount: 250,
     percentage: 15,
     icon: <Icon.House />,
-    arrow: <Icon.ArrowUp />,
+    arrow: (
+      <div className="text-special-red">
+        <Icon.ArrowUp size={16} />
+      </div>
+    ),
+    details: [
+      { id: 1, name: "House Rent", date: "17 May 2023", amount: 230 },
+      { id: 2, name: "Parking", date: "17 May 2023", amount: 20 },
+    ],
   },
   {
     id: 2,
@@ -40,7 +48,15 @@ export const expensesBreakdowns = [
     amount: 350,
     percentage: 8,
     icon: <Icon.Food />,
-    arrow: <Icon.ArrowDown />,
+    arrow: (
+      <div className="text-special-green">
+        <Icon.ArrowDown size={16} />
+      </div>
+    ),
+    details: [
+      { id: 1, name: "Grocery", date: "17 May 2023", amount: 230 },
+      { id: 2, name: "Restaurant Bill", date: "17 May 2023", amount: 120 },
+    ],
   },
   {
     id: 3,
@@ -48,7 +64,16 @@ export const expensesBreakdowns = [
     amount: 50,
     percentage: 12,
     icon: <Icon.Transport />,
-    arrow: <Icon.ArrowDown />,
+    // Tambahkan pembungkus div dengan warna hijau untuk ArrowDown
+    arrow: (
+      <div className="text-special-green">
+        <Icon.ArrowDown size={16} />
+      </div>
+    ),
+    details: [
+      { id: 1, name: "Taxi Fare", date: "17 May 2023", amount: 30 },
+      { id: 2, name: "Metro Card Bill", date: "17 May 2023", amount: 20 },
+    ],
   },
   {
     id: 4,
@@ -56,7 +81,16 @@ export const expensesBreakdowns = [
     amount: 80,
     percentage: 15,
     icon: <Icon.Gamepad />,
-    arrow: <Icon.ArrowDown />,
+    // Tambahkan pembungkus div dengan warna hijau untuk ArrowDown
+    arrow: (
+      <div className="text-special-green">
+        <Icon.ArrowDown size={16} />
+      </div>
+    ),
+    details: [
+      { id: 1, name: "Movie Ticket", date: "17 May 2023", amount: 30 },
+      { id: 2, name: "iTunes", date: "17 May 2023", amount: 50 },
+    ],
   },
   {
     id: 5,
@@ -64,15 +98,33 @@ export const expensesBreakdowns = [
     amount: 420,
     percentage: 25,
     icon: <Icon.Shopping />,
-    arrow: <Icon.ArrowUp />,
+    // Tambahkan pembungkus div dengan warna merah untuk ArrowUp
+    arrow: (
+      <div className="text-special-red">
+        <Icon.ArrowUp size={16} />
+      </div>
+    ),
+    details: [
+      { id: 1, name: "Shirt", date: "17 May 2023", amount: 230 },
+      { id: 2, name: "Jeans", date: "17 May 2023", amount: 190 },
+    ],
   },
   {
     id: 6,
     category: "Others",
-    amount: 650,
+    amount: 50,
     percentage: 23,
     icon: <Icon.Other />,
-    arrow: <Icon.ArrowUp />,
+    // Tambahkan pembungkus div dengan warna merah untuk ArrowUp
+    arrow: (
+      <div className="text-special-red">
+        <Icon.ArrowUp size={16} />
+      </div>
+    ),
+    details: [
+      { id: 1, name: "Donation", date: "17 May 2023", amount: 30 },
+      { id: 2, name: "Gift", date: "17 May 2023", amount: 20 },
+    ],
   },
 ];
 

@@ -7,9 +7,11 @@ import { NavLink } from "react-router-dom";
 import { ThemeContext } from "../../context/themeContext";
 import { AuthContext } from "../../context/authContext";
 import { logoutService } from "../../services/authService";
+import { Backdrop, CircularProgress, Typography, Box } from "@mui/material";
 
 function MainLayout(props) {
   const { children } = props;
+  
 
   const themes = [
     { name: "theme-green", bgcolor: "bg-[#299D91]", color: "#299D91" },
@@ -36,19 +38,28 @@ function MainLayout(props) {
     { id: 7, name: "Settings", icon: <Icon.Setting />, link: "/setting" },
   ];
 
+  const [open, setOpen] = useState(false); // Tambahkan ini di bawah state themes 
+
   const { user, logout } = useContext(AuthContext);
 
-  const handleLogout = async () => {
-    try {
-      await logoutService();
+
+const handleLogout = async () => {
+  setOpen(true); // Tampilkan backdrop saat klik logout
+  try {
+    await logoutService();
+    // Beri jeda sedikit agar user bisa melihat proses "Logging Out"
+    setTimeout(() => {
       logout();
-    } catch (err) {
-      console.error(err);
-      if (err.status === 401) {
-        logout();
-      }
+      setOpen(false);
+    }, 1500); 
+  } catch (err) {
+    console.error(err);
+    setOpen(false); // Tutup backdrop jika terjadi error
+    if (err.status === 401) {
+      logout();
     }
-  };
+  }
+};
 
   return (
     <>
@@ -64,9 +75,10 @@ function MainLayout(props) {
                   key={item.id}
                   to={item.link}
                   className={({ isActive }) =>
-                    `flex px-4 py-3 rounded-md hover:text-white hover:font-bold hover:scale-105 ${isActive
-                      ? "bg-primary text-white font-bold"
-                      : "hover:bg-special-bg3"
+                    `flex px-4 py-3 rounded-md hover:text-white hover:font-bold hover:scale-105 ${
+                      isActive
+                        ? "bg-primary text-white font-bold"
+                        : "hover:bg-special-bg3"
                     }`
                   }
                 >
@@ -129,6 +141,21 @@ function MainLayout(props) {
           <main className="flex-1 px-6 py-4">{children}</main>
         </div>
       </div>
+      <Backdrop
+      sx={{ 
+        color: '#fff', 
+        zIndex: (theme) => theme.zIndex.drawer + 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.7)' // Overlay gelap sesuai gambar
+      }}
+      open={open}
+    >
+      <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+        <CircularProgress color="inherit" />
+        <Typography variant="body1" sx={{ fontWeight: 500 }}>
+          Logging Out
+        </Typography>
+      </Box>
+    </Backdrop>
     </>
   );
 }
